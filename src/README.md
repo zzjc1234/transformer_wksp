@@ -28,12 +28,32 @@ This directory contains a complete implementation of a GPT model built from scra
   - More memory-efficient caching mechanisms
   - **Usage**: Use for production deployment where performance is critical
 
-### Data Processing
-- **`data_module.py`** - Partial implementation of data processing components
-  - Contains `GPTDatasetV1` class for dataset handling
-  - **Usage**: For understanding dataset creation (refer to full implementation in gpt_model_from_reference.py)
+### Training Implementation
+- **`gpt_train.py`** - Complete training implementation for the GPT model:
+  - Contains training loop with loss calculation and optimization
+  - Implements gradient descent and backpropagation
+  - Includes training configuration and hyperparameter setup
+  - Contains model saving and loading utilities
+  - **Usage**: Run `python gpt_train.py` to train the model from scratch
 
-### Attention Mechanisms
+- **`training_components.py`** - Contains all necessary components for training:
+  - GPT model architecture components
+  - Data loading and preprocessing utilities
+  - Loss function implementations
+  - **Usage**: Import components for custom training implementations
+
+- **`gpt_generate.py`** - Text generation utilities from trained models:
+  - Functions to load pretrained weights
+  - Text generation with various sampling strategies
+  - Utilities to use the trained model for inference
+  - **Usage**: For generating text with trained models
+
+- **`gpt_download.py`** - Utilities for downloading pretrained model weights:
+  - Functions to download weights from various sources
+  - Utilities to load weights into the model architecture
+  - **Usage**: For working with existing pretrained models
+
+### Data Processing
 - **`attention_implementation.ipynb`** - Jupyter notebook with detailed attention mechanism implementation:
   - Step-by-step implementation of scaled dot-product attention
   - Multi-head attention mechanism with visualizations
@@ -50,14 +70,6 @@ This directory contains a complete implementation of a GPT model built from scra
 - **`__init__.py`** - Makes the directory a Python package
   - **Usage**: Enables importing modules from this directory
 
-### Additional Implementations
-- **`gpt_complete.py`**, **`gpt_full_implementation.py`**, **`gpt_full.py`**, **`gpt_model_complete.py`**, **`gpt_model.py`**, **`gpt_part1.py`** - Partial implementations created during development
-  - These contain various attempts at implementing different components
-  - **Usage**: For reference only; use `gpt_model_from_reference.py` for complete implementation
-
-- **`data_processing.py`**, **`dataset.py`** - Additional data processing implementations
-  - **Usage**: For reference only; main implementation is in `gpt_model_from_reference.py`
-
 ## Running the Code
 
 ### Prerequisites
@@ -72,6 +84,13 @@ uv add tiktoken torch matplotlib
 cd /Users/zhouzhaojiacheng/research/unigroup/transformer_wksp
 source .venv/bin/activate
 python src/demo.py
+```
+
+### Training the Model
+```bash
+cd /Users/zhouzhaojiacheng/research/unigroup/transformer_wksp
+source .venv/bin/activate
+python src/gpt_train.py
 ```
 
 ### Using the Model in Your Own Code
@@ -103,7 +122,8 @@ model = GPTModel(GPT_CONFIG)
 3. **Transformer Architecture**: Complete transformer block with normalization and FFN
 4. **Text Generation**: Autoregressive text generation capabilities
 5. **KV Caching**: Optimized inference with key-value caching
-6. **Configurable Architecture**: Easily adjustable model parameters
+6. **Complete Training Pipeline**: Full training implementation with loss functions and optimizers
+7. **Configurable Architecture**: Easily adjustable model parameters
 
 ## Architecture Overview
 
