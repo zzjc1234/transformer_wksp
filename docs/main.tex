@@ -19,11 +19,35 @@
 
 \maketitle
 
+\begin{frame}
+  \frametitle{目录}
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+\AtBeginSection[]{
+  \begin{frame}
+    \sectionpage
+  \end{frame}
+}
+
+\section{Introduction}
 \input{intro.tex}
+
+\section{Overview}
 \input{overview.tex}
+
+\section{文本处理}
 \input{encode.tex}
-% \input{atten.tex}
+
+\section{注意力机制}
+\input{atten.tex}
+
+% \section{GPT实现}
 % \input{impl.tex}
+
+% \section{Conclusion}
 % \input{conclusion.tex}
+
+\makebottom
 
 \end{document}
