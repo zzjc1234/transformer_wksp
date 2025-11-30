@@ -214,3 +214,8 @@ __marimo__/
 *.toc
 *.aux
 demo.*
+*.xml
+*.blg
+*.bbl
+*.bcf
+*.bcf

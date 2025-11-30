@@ -6,6 +6,8 @@
 
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage[backend=bibtex,style=ieee,sorting=none]{biblatex}
+\addbibresource{ref.bib}
 
 \usetheme[maxplus]{sjtubeamer}
 \setbeamertemplate{navigation symbols}{}
@@ -27,7 +29,7 @@
 \AtBeginSection[]{
   \begin{frame}
     \sectionpage
-  \end{frame}
+	\end{frame}
 }
 
 \section{Introduction}
@@ -45,8 +47,13 @@
 \section{GPT实现}
 \input{impl.tex}
 
-% \section{Conclusion}
-% \input{conclusion.tex}
+\section{Conclusion}
+\input{conclusion.tex}
+
+\section{References}
+\begin{frame}[allowframebreaks]{References}
+    \printbibliography[heading=none]
+\end{frame}
 
 \makebottom
 

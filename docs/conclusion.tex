@@ -1,0 +1,55 @@
+\begin{frame}{检索增强生成 (Retrieval-Augmented Generation)}
+    \begin{itemize}
+        \item \textbf{核心痛点 (Pain Points):}
+        \begin{itemize}
+            \item \textbf{幻觉 (Hallucination):} 模型可能会一本正经地胡说八道。
+            \item \textbf{知识时效性:} 模型的知识截止于训练结束那一刻，无法回答实时问题。
+        \end{itemize}
+
+        \item \textbf{工作流程 (Workflow):}
+        \begin{enumerate}
+            \item \textbf{Retrieve (检索):} 将用户的问题向量化，在外部向量数据库中匹配最相关的文档片段。
+            \item \textbf{Augment (增强):} 将检索到的事实作为上下文 (Context) 拼接到 Prompt 中。
+            \item \textbf{Generate (生成):} LLM 基于增强后的 Prompt 生成准确且可溯源的答案。
+        \end{enumerate}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{多智能体系统 (Multi-Agent Systems)}
+    \begin{itemize}
+        \item \textbf{从单体到群体 (From Solo to Swarm):}
+        面对复杂的长流程任务（如开发一个游戏），单个 LLM 容易遗忘上下文或逻辑混乱。
+
+        \item \textbf{协作机制 (Collaboration Mechanism):}
+        \begin{itemize}
+            \item \textbf{角色扮演 (Role Playing):} 不同的 Agent 扮演不同角色（如产品经理、架构师、工程师、测试员）。
+            \item \textbf{流程标准化 (SOP):} 将复杂任务拆解为流水线，Agent 之间通过对话进行规划、执行和互相审查。
+        \end{itemize}
+
+        \item \textbf{典型框架:}
+        \begin{itemize}
+            \item \textbf{AutoGen (Microsoft):} 允许创建可定制、可对话的 Agent 网络。
+            \item \textbf{MetaGPT:} 只要给一句需求，就能输出整个软件工程项目
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{推理加速关键技术：KV Cache}
+    \begin{itemize}
+        \item \textbf{背景 (Background):}
+        LLM 推理是自回归 (Auto-regressive) 的，每生成一个 Token，都要重新计算一次 Attention。
+
+        \item \textbf{空间换时间 (Space-Time Trade-off):}
+        \begin{itemize}
+            \item Attention 公式: $\text{Attention}(Q, K, V) = \text{softmax}(\frac{QK^T}{\sqrt{d_k}})V$
+            \item 生成第 $t$ 个 token 时，前 $t-1$ 个 token 的 $K$ (Key) 和 $V$ (Value) 矩阵计算结果是**不变的**。
+            \item \textbf{KV Cache:} 将历史的 $K, V$ 向量缓存在显存中，每次只计算当前新 token 的 $Q, K, V$，避免重复计算。
+        \end{itemize}
+
+        \item \textbf{挑战 (Challenge):}
+        \begin{itemize}
+            \item \textbf{显存杀手:} KV Cache 随序列长度线性增长，是长文本推理显存占用过高(Memory Bound)的主要原因。
+            \item \textit{解决方案示例：PagedAttention (vLLM).}
+        \end{itemize}
+    \end{itemize}
+\end{frame}

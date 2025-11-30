@@ -1,33 +1,113 @@
-\begin{frame}{What are Large Language Models (LLMs)?}
+\begin{frame}{Introduction}
 	\begin{itemize}
-		\item Large Language Models (LLMs) are deep learning models designed to understand, generate, and reason about human language
-		\item Trained on massive text corpora (hundreds of GBs to TBs of text)
-		\item Billions to trillions of parameters that capture linguistic patterns and world knowledge
-		\item Capable of diverse tasks like text generation, translation, summarization, question answering
+		\item 自20世纪50年代图灵测试提出以来，人类一直在探索如何让机器掌握语言智能。
+		\item 语言本质上是一个复杂精妙的人类表达系统，受语法规则的约束。
+		\item 开发能够理解和掌握语言的人工智能（AI）算法是一项巨大的挑战
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{What are Large Language Models (LLMs)?}
+\begin{frame}{什么是大语言模型 (What are LLMs?)}
+	\begin{itemize}
+		\item 基于深度学习的大规模概率模型，参数量通常在数十亿 (Billions) 至万亿级别。
+		\item 这里的“大”既指\textbf{参数量巨大}，也指训练数据的\textbf{规模巨大}（万亿级 Tokens）。
+		\item 绝大多数现代 LLM 基于 \textbf{Transformer} 架构（特别是 Decoder-only 结构，如 GPT 系列）
+		\item 利用自注意力机制 (Self-Attention) 捕捉长距离的文本依赖关系。
+		\item \textbf{自监督学习 (Self-Supervised Learning):} 不需要人工标注，通过“预测下一个词” (Next Token Prediction) 进行训练。
+		\item \textbf{知识压缩 (Knowledge Compression):} 模型不仅仅是在记忆文本，而是将世界知识、逻辑规则和语言模式压缩进了神经网络的权重参数中。
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{什么是大模型}
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{intro/llm_hist.png}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Historical Timeline of LLMs}
+	\begin{itemize}
+		\item SLM: 统计语言模型
+		\item NLM: 神经语言模型
+		\item PLM: 预训练语言模型
+		\item LLM: 大语言模型
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Historical Timeline of LLMs}
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{intro/arch_hist.png}
 	\end{center}
 \end{frame}
 
-\begin{frame}{Historical Timeline of LLMs}
-	\begin{center}
-		\includegraphics[width=0.7\textwidth]{intro/llm_hist.png}
-	\end{center}
+\begin{frame}{从 PLM 到 LLM 的范式转变}
+    \begin{itemize}
+        \item PLM (Pre-trained Language Models) 时代 (e.g., BERT, RoBERTa):
+        \begin{itemize}
+            \item \textbf{范式：} 预训练 + 微调 (Pre-train + Fine-tune)。
+            \item \textbf{局限：} 需要针对特定任务（Task-specific）收集标注数据并更新参数；模型往往是“专才”而非“通才”。
+        \end{itemize}
 
+        \item LLM (Large Language Models) 时代 (e.g., GPT-3, GPT-4, Llama):
+        \begin{itemize}
+            \item \textbf{范式：} 预训练 + 提示工程/上下文学习 (Pre-train + Prompt/In-Context Learning)。
+            \item \textbf{优势：} 冻结参数即可处理多种任务；通过指令微调 (Instruction Tuning) 实现通用意图理解。
+        \end{itemize}
+    \end{itemize}
 \end{frame}
 
-\begin{frame}{Current Applications of LLMs}
-	\begin{itemize}
-		\item \textbf{Coding Agents:} GitHub Copilot, CodeT5, GPT-powered programming assistants
-		\item \textbf{Conversational AI:} ChatGPT, Claude, Bard for customer service and personal assistants
-		\item \textbf{Content Generation:} Automated article writing, creative writing, marketing content
-		\item \textbf{Research Assistance:} Literature review, hypothesis generation, data analysis
-		\item \textbf{Education:} Personalized tutoring, automated grading, content creation
-	\end{itemize}
+\begin{frame}{LLM 的核心进步 (Key Advancements)}
+    \begin{itemize}
+        \item \textbf{扩展定律 (Scaling Laws):}
+        \begin{itemize}
+            \item 随着参数量、数据量和计算量的增加，模型性能呈幂律提升，并未出现瓶颈 \cite{kaplan2020scalinglawsneurallanguage}。
+        \end{itemize}
+
+        \item \textbf{指令微调 (Instruction Tuning):}
+        \begin{itemize}
+            \item 通过在多任务指令数据集上微调，模型学会了“遵循指令”而非仅仅“预测下一个词”，显著提高了零样本泛化能力 \cite{ouyang2022traininglanguagemodelsfollow}。
+        \end{itemize}
+
+        \item \textbf{人类反馈强化学习 (RLHF):}
+        \begin{itemize}
+            \item 将模型输出与人类价值观（有用性、诚实性、安全性）对齐，解决了PLM生成内容不可控的问题 \cite{ouyang2022traininglanguagemodelsfollow}。
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{LLM 的特殊能力 (Emergent Abilities)}
+    当模型规模突破一定临界值（如 $10^{22}$ FLOPs）时，会出现小模型不具备的\textbf{涌现能力 (Emergent Abilities)} \cite{wei2022emergentabilitieslargelanguage}：
+
+    \begin{itemize}
+        \item \textbf{上下文学习 (In-Context Learning, ICL):}
+        \begin{itemize}
+            \item 模型无需梯度更新，仅通过Prompt中的几个示例即可学会新任务 \cite{brown2020languagemodelsfewshotlearners}。
+        \end{itemize}
+
+        \item \textbf{思维链 (Chain-of-Thought, CoT):}
+        \begin{itemize}
+            \item 通过生成中间推理步骤，显著提升了处理复杂逻辑、数学和常识推理任务的能力 \cite{wei2023chainofthoughtpromptingelicitsreasoning}。
+        \end{itemize}
+
+        \item \textbf{指令遵循与泛化:}
+        \begin{itemize}
+            \item 能够处理训练集中从未见过的任务描述，表现出真正的通用智能特征。
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{大语言模型的当前应用}
+    \begin{itemize}
+        \item \textbf{编程智能体:}
+        GitHub Copilot, Cursor, CodeT5, 以及基于 GPT 的编程助手。
+
+        \item \textbf{对话式 AI:}
+        ChatGPT, Claude, Gemini, 用于客户服务及个人助理。
+
+        \item \textbf{内容生成 (Content Generation):}
+        自动化文章撰写、创意写作、营销内容生成。
+
+        \item \textbf{科研辅助 (Research Assistance):}
+        Alpha evolve, GPT Deepresearch, 文献综述加速、研究假设生成、辅助数据分析。
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Attention Mechanism}
