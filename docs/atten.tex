@@ -10,9 +10,29 @@
 	\end{center}
 \end{frame}
 
-\begin{frame}{Solution}
+\begin{frame}{Previous Solution}
+
+	This figure is an encoder–decoder RNN.
+
 	\begin{center}
 			\includegraphics[width=0.5\textwidth]{atten/sol.png }
+	\end{center}
+\end{frame}
+
+\begin{frame}{Previous Solution}
+
+	\begin{itemize}
+		\item Encoder-Decoder RNN decoder 不能获取encoder中间状态的hidden state
+		\item 这代表所有的信息需要压缩到一个hidden state中
+		\item 后果是可能带来上下文损失
+		\item 这是设计self attention机制的motivation
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Self Attention}
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{atten/atten_overview.png }
 	\end{center}
 \end{frame}
 
