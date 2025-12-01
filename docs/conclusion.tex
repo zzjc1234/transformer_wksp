@@ -42,7 +42,7 @@
         \item \textbf{空间换时间 (Space-Time Trade-off):}
         \begin{itemize}
             \item Attention 公式: $\text{Attention}(Q, K, V) = \text{softmax}(\frac{QK^T}{\sqrt{d_k}})V$
-            \item 生成第 $t$ 个 token 时，前 $t-1$ 个 token 的 $K$ (Key) 和 $V$ (Value) 矩阵计算结果是**不变的**。
+						\item 生成第 $t$ 个 token 时，前 $t-1$ 个 token 的 $K$ (Key) 和 $V$ (Value) 矩阵计算结果是\textbf{不变的}。
             \item \textbf{KV Cache:} 将历史的 $K, V$ 向量缓存在显存中，每次只计算当前新 token 的 $Q, K, V$，避免重复计算。
         \end{itemize}
 
